@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coronavirus Live Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <h6 id="madeby">Made by I.N. 10/06/2021</h6>
+    <div class="container">
+        <h1 class="text-center mt-5">Coronavirus Live Data</h1>
+    <br>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Total Cases</th>
+            <th scope="col">New Cases</th>
+            <th scope="col">Total Deaths</th>
+            <th scope="col">New Deaths</th>
+            <th scope="col">Total Recovered</th>
+            <th scope="col">New Recovered</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="data">
+          
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <button onclick="refreshData()" class="btn btn-danger btn-block">Refresh Data</button>
+      
+    </div>
+    <br>
+    <br>
+    <div>
+    <i>
+    <h4 class="text-center mt-5" id="segundot">Stay home, stay safe</h4>
+    </i>
+    </div>
+</body>
+
+<style>
+  #segundot{
+    background-color: royalblue;
+    padding: 25px;
+    color: white;
+    margin: 500px;
+  }
+  #madeby{
+    padding: 5px;
+  }
+</style>
+
+
+<script>
+
+        function init(){
+            var url = "https://api.covid19api.com/summary"
+
+            var data = ""
+
+            $.get(url,function(data){
+                console.log(data.Global)
+                
+                data = ` 
+
+                <td>${data.Global.TotalConfirmed}</td>
+                <td>${data.Global.NewConfirmed}</td>
+                <td>${data.Global.TotalDeaths}</td>
+                <td>${data.Global.NewDeaths}</td>
+                <td>${data.Global.TotalRecovered}</td>
+                <td>${data.Global.NewRecovered}</td>
+
+                `
+
+                $("#data").html(data)
+            })
+        }
+  function refreshData(){
+    clearData()
+    init()      
+    }
+    function clearData(){
+      $("#data").empty()
+          
+      }
+  refreshData()
+
+</script>
+</html>
